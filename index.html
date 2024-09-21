@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to the Nursery Family website, a place for families to connect and learn.">
+    <meta name="keywords" content="nursery, family, community, education">
+    <title>Nursery Family!</title>
+    <style>
+        :root {
+            --header-color: #FF69B4; /* Pink header */
+            --footer-color: #00BFFF; /* Light blue footer */
+            --text-color: #000; /* Black text */
+            --button-color: #FF1493; /* Darker pink for buttons */
+            --table-header-color: #FFB6C1; /* Light pink for table header */
+            --table-border-color: #000; /* Black for table borders */
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            color: var(--text-color);
+            background-color: #FFFFFF; /* White background */
+            position: relative; /* Allow positioning of the image */
+            min-height: 100vh; /* Ensure the body takes the full height */
+        }
+
+        header {
+            background-color: var(--header-color);
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .content {
+            text-align: center;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        footer {
+            background-color: var(--footer-color);
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .intro-image {
+            width: 150px; /* Adjust size as needed */
+            height: auto;
+            position: absolute; /* Positioning the image */
+            bottom: 20px; /* Distance from the bottom */
+            right: 20px; /* Distance from the right */
+        }
+
+        .nav-button,
+        .add-row-button {
+            margin: 20px;
+            padding: 15px 30px; /* Larger padding for a bigger button */
+            font-size: 1.5em; /* Increased font size */
+            background-color: var(--header-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        .nav-button:hover {
+            background-color: #FF1493; /* Darker pink on hover */
+        }
+
+        .add-row-button {
+            background-color: var(--button-color); /* Pink color for Add Row button */
+        }
+
+        .add-row-button:hover {
+            background-color: #FF69B4; /* Lighter pink on hover */
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse; /* Collapse borders for better styling */
+            width: 80%; /* Width of the table */
+        }
+
+        th, td {
+            padding: 15px; /* Increased padding for better spacing */
+            border: 1px solid var(--table-border-color); /* Solid border for cells */
+            text-align: center;
+        }
+
+        th {
+            background-color: var(--table-header-color); /* Light pink for header */
+            font-weight: bold; /* Bold text for headers */
+            font-size: 1.2em; /* Slightly larger font size for headers */
+        }
+
+        input {
+            width: 100%; /* Full width of the cell */
+            padding: 5px;
+            box-sizing: border-box; /* Include padding in width */
+        }
+
+        .hidden {
+            display: none; /* Hide elements with this class */
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .intro-image {
+                width: 80px; /* Adjust size for smaller screens */
+            }
+
+            th, td {
+                padding: 10px; /* Adjust padding for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Nursery Family!</h1>
+    </header>
+    <main class="content" id="home">
+        <p>Welcome to the Nursery Family website!</p>
+        <button class="nav-button" onclick="showStudentInfo()">Student Info</button>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4-oYuXkRWmggDT0fARDxN7AS8HDzy002ElA&s" 
+             alt="A friendly character welcoming you to the nursery" 
+             class="intro-image">
+    </main>
+    <main class="content hidden" id="studentInfo">
+        <button class="nav-button" onclick="showHome()">Back to Home</button>
+        <h2>Student Information</h2>
+        <button class="add-row-button" onclick="addRow()">Add Row</button>
+        <table id="namesTable">
+            <thead>
+                <tr>
+                    <th>Row Number</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr>
+                    <td>1</td>
+                    <td><input type="text" placeholder="Enter name" aria-label="Name" required></td>
+                    <td><input type="tel" placeholder="Enter phone number" aria-label="Phone number" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></td>
+                    <td><input type="text" placeholder="Enter address" aria-label="Address" required></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2024 St. George's Church of the Coast</p>
+    </footer>
+
+    <script>
+        let rowCount = 1; // Initialize row count
+
+        function showStudentInfo() {
+            document.getElementById('home').classList.add('hidden');
+            document.getElementById('studentInfo').classList.remove('hidden');
+        }
+
+        function showHome() {
+            document.getElementById('studentInfo').classList.add('hidden');
+            document.getElementById('home').classList.remove('hidden');
+        }
+
+        function addRow() {
+            rowCount++; // Increment row count
+            const tableBody = document.getElementById('tableBody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${rowCount}</td> <!-- Display row number -->
+                <td><input type="text" placeholder="Enter name" aria-label="Name" required></td>
+                <td><input type="tel" placeholder="Enter phone number" aria-label="Phone number" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"></td>
+                <td><input type="text" placeholder="Enter address" aria-label="Address" required></td>
+            `;
+            tableBody.appendChild(newRow);
+        }
+    </script>
+</body>
+</html>
